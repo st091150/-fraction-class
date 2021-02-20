@@ -1,0 +1,70 @@
+// Дробные числа.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+//
+
+#include <iostream>
+#include <cassert>
+
+int GCD(int x, int y) {
+    if ( x != 0 && y != 0) {
+        if (x > y) {
+          return GCD(x % y, y);
+        }
+        else {
+          return  GCD(x, y % x);
+        }
+    }
+    return x + y;
+}
+
+class Fractional {
+private:
+    double x;
+    double y;
+public:
+    Fractional(double firstNmr = 0, double secondNmr = 1){
+        assert(secondNmr != 0 && "Cannot be divisible by 0");
+            int sup = GCD(firstNmr, secondNmr);
+            x = firstNmr / sup;
+            y = secondNmr / sup;
+    }
+    Fractional(const Fractional& X) : x(X.getNumerator()), y(X.getDenominator()) {}
+    ~Fractional(){}
+    
+    double getNumerator()const { return x; }
+    double getDenominator() const { return y; }
+
+    Fractional operator+(const Fractional &X)const {
+        return Fractional(x*X.getDenominator()+X.getNumerator()*y,y*X.getDenominator());
+    }
+    Fractional operator-(const Fractional &X)const {
+        return Fractional(x * X.getDenominator() - X.getNumerator() * y, y * X.getDenominator());
+    }
+    Fractional operator/(const Fractional &X)const {
+        return Fractional(x * X.getDenominator(), y * X.getNumerator());
+    }
+    Fractional operator*(const Fractional &X)const {
+        return Fractional(x * X.getNumerator(), y * X.getDenominator());
+    }
+    Fractional operator=(const Fractional X) {
+        x = X.getNumerator();
+        y = X.getDenominator();
+    }
+};
+
+std::ostream& operator<<(std::ostream& out, const Fractional& X) {
+    if (X.getDenominator() == 1) {
+        out << X.getNumerator() << std::endl;
+    }else{
+        out << X.getNumerator() << '/' << X.getDenominator() << std::endl;
+    }
+    return out;
+}
+
+int main()
+{
+    Fractional A(16,0);
+    Fractional B(32, 5);
+    Fractional C = A + B + A / 4;
+    std::cout << A;
+}
+ 
