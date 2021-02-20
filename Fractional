@@ -21,11 +21,11 @@ private:
     double x;
     double y;
 public:
-    Fractional(double firstNmr = 0, double secondNmr = 1){
-        assert(secondNmr != 0 && "Cannot be divisible by 0");
-            int sup = GCD(firstNmr, secondNmr);
-            x = firstNmr / sup;
-            y = secondNmr / sup;
+    Fractional(double numerator = 0, double denomitar = 1){
+        assert(denomitar == 0 && "Cannot be divisible by 0");
+            int sup = GCD(numerator, denomitar);
+            x = numerator / sup;
+            y = denomitar / sup;
     }
     Fractional(const Fractional& X) : x(X.getNumerator()), y(X.getDenominator()) {}
     ~Fractional(){}
