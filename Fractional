@@ -5,7 +5,7 @@
 #include <cassert>
 
 int GCD(int x, int y) {
-    if ( x != 0 && y != 0) {
+    if ( x != 0. && y != 0.) {
         if (x > y) {
           return GCD(x % y, y);
         }
@@ -18,20 +18,20 @@ int GCD(int x, int y) {
 
 class Fractional {
 private:
-    double x;
-    double y;
+    int x;
+    int y;
 public:
-    Fractional(double numerator = 0, double denomitar = 1){
-        assert(denomitar == 0 && "Cannot be divisible by 0");
+        Fractional(int numerator = 0, int denomitar = 1) {
+           // assert(denomitar == 0 && "Cannot be divisible by 0");
             int sup = GCD(numerator, denomitar);
             x = numerator / sup;
             y = denomitar / sup;
-    }
+        }
     Fractional(const Fractional& X) : x(X.getNumerator()), y(X.getDenominator()) {}
     ~Fractional(){}
     
-    double getNumerator()const { return x; }
-    double getDenominator() const { return y; }
+    int getNumerator()const { return x; }
+    int getDenominator() const { return y; }
 
     Fractional operator+(const Fractional &X)const {
         return Fractional(x*X.getDenominator()+X.getNumerator()*y,y*X.getDenominator());
@@ -62,9 +62,9 @@ std::ostream& operator<<(std::ostream& out, const Fractional& X) {
 
 int main()
 {
-    Fractional A(16,0);
+    Fractional A(3,5);
     Fractional B(32, 5);
-    Fractional C = A + B + A / 4;
-    std::cout << A;
+    Fractional C = B + A;
+    std::cout << A << std::endl << C;
 }
  
