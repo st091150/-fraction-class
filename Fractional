@@ -22,7 +22,7 @@ private:
     int y;
 public:
         Fractional(int numerator = 0, int denomitar = 1) {
-           // assert(denomitar == 0 && "Cannot be divisible by 0");
+           assert(!(denomitar == 0));
             int sup = GCD(numerator, denomitar);
             x = numerator / sup;
             y = denomitar / sup;
