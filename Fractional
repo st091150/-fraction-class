@@ -4,13 +4,15 @@
 #include <iostream>
 #include <cassert>
 
-int GCD(int x, int y) {
-    if ( x != 0. && y != 0.) {
+int GCD( int x,int y) {
+    x < 0 ? x = -x : x = x;
+    y < 0 ? y = -y : y = y;
+    if (x != 0 && y != 0) {
         if (x > y) {
-          return GCD(x % y, y);
+            return GCD(x % y, y);
         }
         else {
-          return  GCD(x, y % x);
+            return  GCD(x, y % x);
         }
     }
     return x + y;
@@ -21,11 +23,17 @@ private:
     int x;
     int y;
 public:
-        Fractional(int numerator = 0, int denomitar = 1) {
-           assert(!(denomitar == 0));
-            int sup = GCD(numerator, denomitar);
-            x = numerator / sup;
-            y = denomitar / sup;
+    Fractional(int numerator = 0, int denominator = 1) {
+        assert(!(denominator == 0));
+        int sup = GCD(numerator, denominator);
+        if (numerator < 0 && denominator < 0) {
+        x = -(numerator / sup);
+        y = -(denominator / sup);
+        }
+        else {
+            x = (numerator / sup);
+            y = (denominator / sup);
+        }
         }
     Fractional(const Fractional& X) : x(X.getNumerator()), y(X.getDenominator()) {}
     ~Fractional(){}
@@ -54,7 +62,10 @@ public:
 std::ostream& operator<<(std::ostream& out, const Fractional& X) {
     if (X.getDenominator() == 1) {
         out << X.getNumerator() << std::endl;
-    }else{
+    }
+    else if (X.getDenominator() == -1) {
+        out << -X.getNumerator() << std::endl;
+    }else {
         out << X.getNumerator() << '/' << X.getDenominator() << std::endl;
     }
     return out;
@@ -62,9 +73,8 @@ std::ostream& operator<<(std::ostream& out, const Fractional& X) {
 
 int main()
 {
-    Fractional A(3,5);
-    Fractional B(32, 5);
-    Fractional C = B + A;
-    std::cout << A << std::endl << C;
+    Fractional A(-10,-5);
+    Fractional B(-10,5);
+    std::cout << A+B << std::endl;
 }
  
