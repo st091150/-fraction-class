@@ -34,7 +34,7 @@ public:
             x = (numerator / sup);
             y = (denominator / sup);
         }
-        }
+     }
     Fractional(const Fractional& X) : x(X.getNumerator()), y(X.getDenominator()) {}
     ~Fractional(){}
     
@@ -73,8 +73,9 @@ std::ostream& operator<<(std::ostream& out, const Fractional& X) {
 
 int main()
 {
-    Fractional A(-10,-5);
-    Fractional B(-10,5);
-    std::cout << A+B << std::endl;
+    Fractional A(1,2);
+    Fractional B = {1,2};
+    Fractional C = A + (9,9) - A + (A / B - A) + B;
+    std::cout << A << '\n' << B << '\n' << C;
 }
  
